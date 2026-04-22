@@ -19,19 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
     emailjs.init(PUBLIC_KEY); 
 
     const sidebar = document.getElementById('sidebar');
-    const dropzones = document.querySelectorAll('.column-body'); // Seleccionamos solo el cuerpo de las columnas
+    const dropzones = document.querySelectorAll('.column-body'); 
     const sendBtn = document.getElementById('send-btn');
 
-    // --- 2. LÓGICA DE DRAG & DROP (PC + CELULAR) ---
-    // Creamos un grupo compartido para que las tarjetas se muevan entre todas las listas
+    // --- 2. LÓGICA DE DRAG & DROP (OPTIMIZADA PARA MÓVIL) ---
     const allZones = [sidebar, ...dropzones];
 
     allZones.forEach(zone => {
         new Sortable(zone, {
-            group: 'shared', // Nombre del grupo para permitir el intercambio
+            group: 'shared',
             animation: 150,
-            ghostClass: 'drag-over', // Clase visual cuando se arrastra
-            // Esta función se ejecuta cada vez que se suelta una tarjeta
+            ghostClass: 'drag-over',
+            
+            // --- AJUSTES CRÍTICOS PARA MÓVILES ---
+            delay: 100, // Espera 100ms de presión para activar el arrastre
+            delayOnTouchOnly: true, // El retraso solo aplica en pantallas táctiles
+            touchStartThreshold: 5, // Permite un margen de error de 5px antes de cancelar
+            swapThreshold: 0.65, // Hace que sea más fácil soltar la tarjeta en una zona
+            // --------------------------------------
+
             onEnd: () => {
                 const cardsRemaining = sidebar.querySelectorAll('.pink-card').length;
                 if (cardsRemaining === 0) {
@@ -52,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameValue = document.querySelector('.name-input').value || "Anónimo";
 
         html2canvas(container, { 
-            scale: 1,
+            scale: 2, // Aumentamos un poco la calidad para que el texto se lea bien
             backgroundColor: "#ffffff",
             logging: false,
             useCORS: true 

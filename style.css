@@ -247,3 +247,18 @@ body {
     align-items: center;
 }
 
+.card {
+    /* Evita que el navegador intente hacer scroll cuando tocas una tarjeta */
+    touch-action: none; 
+    /* Evita que se seleccione el texto mientras arrastras */
+    user-select: none;
+    -webkit-user-select: none;
+    /* Mejora la respuesta al toque */
+    cursor: grab;
+}
+
+/* Importante: para que SortableJS detecte bien el hueco en móviles */
+.column-body {
+    min-height: 100px;
+    height: auto;
+}
