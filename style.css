@@ -217,34 +217,33 @@ body {
     }
 }
 
-.welcome-card {
-    background-color: #fff0f6; /* Un rosa muy clarito */
-    border-left: 5px solid #ff007f;
-    padding: 20px 30px;
-    margin-bottom: 30px;
-    border-radius: 8px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+/* Contenedor del mensaje de ayuda */
+.orientacion-container {
+    text-align: center;
+    padding: 30px 10px; /* Espacio interno */
+    margin-bottom: 40px; /* Espacio externo hacia abajo (hacia el NOMBRE) */
 }
 
-.welcome-card h1 {
+.orientacion-msg {
     color: #ff007f;
-    margin-top: 0;
-    font-size: 1.8rem;
-}
-
-.welcome-card p {
-    color: #444;
+    font-weight: bold;
     font-size: 1.1rem;
     margin-bottom: 10px;
+    line-height: 1.5;
 }
 
-/* Ajuste opcional para el contenedor de nombre */
+.gracias-msg {
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Ajuste del contenedor de nombre para que no suba demasiado */
 .name-container {
-    text-align: center;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
