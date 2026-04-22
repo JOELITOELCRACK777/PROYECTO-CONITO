@@ -46,25 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. LÓGICA DE CAPTURA Y ENVÍO (MÁXIMA NITIDEZ) ---
+    // --- 3. LÓGICA DE CAPTURA Y ENVÍO (OPTIMIZADA PARA ÉXITO GLOBAL) ---
     sendBtn.addEventListener('click', () => {
-        // Cambiamos el mensaje para que el usuario sea paciente con la subida
-        sendBtn.innerText = "Subiendo imagen HD... espera un momento";
+        sendBtn.innerText = "Enviando...";
         sendBtn.disabled = true;
 
         const container = document.getElementById('captura-completa');
         const nameValue = document.querySelector('.name-input').value || "Anónimo";
 
-        // Subimos a 1.5 para que las letras se vean perfectas
+        // REDUCIMOS SCALE: Antes estaba en 2 (pesado), ahora en 0.8 para asegurar el envío
         html2canvas(container, { 
-            scale: 1.5, 
+            scale: 0.8, 
             backgroundColor: "#ffffff",
             logging: false,
-            useCORS: true,
-            imageTimeout: 0 // Evita que la captura se rinda por falta de tiempo
+            useCORS: true 
         }).then(canvas => {
-            // Calidad 0.5: Es el punto dulce para que sea nítido y no pese megabytes
-            const compressedImg = canvas.toDataURL('image/jpeg', 0.5);
+            // COMPRESIÓN MÁXIMA: Calidad 0.1 para que la imagen pese pocos KB
+            const compressedImg = canvas.toDataURL('image/jpeg', 0.1);
 
             const templateParams = {
                 from_name: nameValue,
@@ -78,9 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('¡Excelente! Tu clasificación ha sido enviada con éxito.');
                     location.reload(); 
                 }, (error) => {
-                    console.error('Error de red/EmailJS:', error);
-                    alert('La conexión es un poco lenta para el archivo HD. Por favor, intenta enviarlo una vez más.');
-                    sendBtn.innerText = "Reintentar Envío";
+                    console.error('Error de EmailJS:', error);
+                    // Si el error es por peso, esto le avisará al usuario
+                    alert('Error al enviar. Por favor, intenta de nuevo. Si el problema persiste, revisa tu conexión.');
+                    sendBtn.innerText = "Reintentar";
                     sendBtn.disabled = false;
                 });
         });
