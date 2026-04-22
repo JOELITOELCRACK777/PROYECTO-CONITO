@@ -1,0 +1,175 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    /* Patrón de puntos de fondo */
+    background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
+    background-size: 30px 30px;
+    padding: 40px;
+    height: 100vh;
+}
+
+/* --- ESTILOS DEL NOMBRE --- */
+.name-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.main-title {
+    color: #ff007f;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.name-input {
+    border: none;
+    border-bottom: 2px solid #ff007f;
+    background: transparent;
+    color: #ff007f;
+    font-size: 24px;
+    font-weight: bold;
+    outline: none;
+    width: 350px;
+}
+
+.name-input::placeholder {
+    color: rgba(255, 0, 127, 0.2);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.app-container {
+    display: flex;
+    border: 2px solid #ff007f;
+    background-color: #ffffff; /* Fondo sólido para que la captura salga limpia */
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 80vh;
+}
+
+.sidebar {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-right: 20px;
+    min-height: 100%;
+}
+
+.vertical-divider {
+    width: 3px;
+    background-color: #000;
+    margin-right: 20px;
+}
+
+.board {
+    display: flex;
+    flex-grow: 1;
+    gap: 15px;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* --- TARJETAS --- */
+.card, .header-card {
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.pink-card {
+    background-color: #ff00cc;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.pink-card:active {
+    cursor: grabbing;
+}
+
+.pink-card.dragging {
+    opacity: 0.5;
+    transform: scale(1.05);
+}
+
+.black-card {
+    background-color: #000000;
+}
+
+/* --- ZONAS DE CAÍDA --- */
+.dropzone {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.column-body {
+    min-height: 200px;
+}
+
+.dropzone.drag-over {
+    background-color: rgba(255, 0, 204, 0.1);
+    border: 2px dashed #ff00cc;
+}
+
+/* --- BOTÓN DE ENVIAR --- */
+#send-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #ff007f;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+#send-btn:hover {
+    background-color: #ff007f;
+    transform: translateY(-5px) scale(1.05);
+}
+
+#send-btn:disabled {
+    background-color: #666;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#captura-completa {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+

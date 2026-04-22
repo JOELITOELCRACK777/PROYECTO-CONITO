@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificador de Tarjetas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="captura-completa">
+        
+        <div class="name-container">
+            <label class="main-title">NOMBRE:</label>
+            <input type="text" class="name-input" placeholder="Escribe aquí...">
+        </div>
+        
+        <div class="app-container">
+            <div class="sidebar dropzone" id="sidebar">
+                <div class="card pink-card" draggable="true">actividades</div>
+                <div class="card pink-card" draggable="true">ubicación</div>
+                <div class="card pink-card" draggable="true">artistas/tatuadores</div>
+                <div class="card pink-card" draggable="true">entradas</div>
+                <div class="card pink-card" draggable="true">contacto</div>
+                <div class="card pink-card" draggable="true">horarios</div>
+                <div class="card pink-card" draggable="true">noticias/novedades</div>
+                <div class="card pink-card" draggable="true">invitados</div>
+                <div class="card pink-card" draggable="true">galeria</div>
+                <div class="card pink-card" draggable="true">mapa del evento</div>
+                <div class="card pink-card" draggable="true">información del evento</div>
+            </div>
+
+            <div class="vertical-divider"></div>
+
+            <div class="board">
+                <div class="column">
+                    <div class="header-card black-card">vivencia</div>
+                    <div class="dropzone column-body" id="col-vivencia"></div>
+                </div>
+                <div class="column">
+                    <div class="header-card black-card">agenda</div>
+                    <div class="dropzone column-body" id="col-agenda"></div>
+                </div>
+                <div class="column">
+                    <div class="header-card black-card">información</div>
+                    <div class="dropzone column-body" id="col-info"></div>
+                </div>
+                <div class="column">
+                    <div class="header-card black-card">entrada</div>
+                    <div class="dropzone column-body" id="col-entrada"></div>
+                </div>
+                <div class="column">
+                    <div class="header-card black-card">ubicación</div>
+                    <div class="dropzone column-body" id="col-ubicacion"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="send-btn" style="display: none;">Enviar Clasificación</button>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
