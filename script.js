@@ -30,13 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
             group: 'shared',
             animation: 150,
             ghostClass: 'drag-over',
-            
-            // --- AJUSTES CRÍTICOS PARA MÓVILES ---
-            delay: 100, // Espera 100ms de presión para activar el arrastre
-            delayOnTouchOnly: true, // El retraso solo aplica en pantallas táctiles
-            touchStartThreshold: 5, // Permite un margen de error de 5px antes de cancelar
-            swapThreshold: 0.65, // Hace que sea más fácil soltar la tarjeta en una zona
-            // --------------------------------------
+            delay: 100, 
+            delayOnTouchOnly: true, 
+            touchStartThreshold: 5, 
+            swapThreshold: 0.65, 
 
             onEnd: () => {
                 const cardsRemaining = sidebar.querySelectorAll('.pink-card').length;
@@ -49,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. LÓGICA DE CAPTURA Y ENVÍO ---
+    // --- 3. LÓGICA DE CAPTURA Y ENVÍO (OPTIMIZADA PARA ÉXITO GLOBAL) ---
     sendBtn.addEventListener('click', () => {
         sendBtn.innerText = "Enviando...";
         sendBtn.disabled = true;
@@ -57,13 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('captura-completa');
         const nameValue = document.querySelector('.name-input').value || "Anónimo";
 
+        // REDUCIMOS SCALE: Antes estaba en 2 (pesado), ahora en 0.8 para asegurar el envío
         html2canvas(container, { 
-            scale: 2, // Aumentamos un poco la calidad para que el texto se lea bien
+            scale: 0.8, 
             backgroundColor: "#ffffff",
             logging: false,
             useCORS: true 
         }).then(canvas => {
-            const compressedImg = canvas.toDataURL('image/jpeg', 0.2);
+            // COMPRESIÓN MÁXIMA: Calidad 0.1 para que la imagen pese pocos KB
+            const compressedImg = canvas.toDataURL('image/jpeg', 0.1);
 
             const templateParams = {
                 from_name: nameValue,
@@ -78,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     location.reload(); 
                 }, (error) => {
                     console.error('Error de EmailJS:', error);
-                    alert('Hubo un error al enviar. Revisa tu conexión.');
+                    // Si el error es por peso, esto le avisará al usuario
+                    alert('Error al enviar. Por favor, intenta de nuevo. Si el problema persiste, revisa tu conexión.');
                     sendBtn.innerText = "Reintentar";
                     sendBtn.disabled = false;
                 });
