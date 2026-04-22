@@ -173,3 +173,47 @@ body {
     border-radius: 8px;
 }
 
+/* --- DISEÑO PARA CELULARES --- */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column; /* Apila el sidebar y el board */
+        align-items: center;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: 400px;
+        min-height: 150px;
+        margin-bottom: 20px;
+        flex-direction: row; /* Las tarjetas se ven de lado en el celular */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .vertical-divider {
+        display: none; /* Quitamos la línea divisoria en celular */
+    }
+
+    .board {
+        width: 100%;
+        flex-direction: column; /* Las columnas negras una debajo de otra */
+        gap: 15px;
+    }
+
+    .column {
+        width: 100% !important;
+        min-height: 120px;
+    }
+
+    .card {
+        padding: 12px;
+        font-size: 14px;
+        touch-action: none; /* VITAL para que el dedo no mueva la pantalla al arrastrar */
+    }
+
+    .welcome-card {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+}
+

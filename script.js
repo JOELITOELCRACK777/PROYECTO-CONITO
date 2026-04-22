@@ -18,46 +18,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     emailjs.init(PUBLIC_KEY); 
 
-    const draggables = document.querySelectorAll('.card');
-    const dropzones = document.querySelectorAll('.dropzone');
     const sidebar = document.getElementById('sidebar');
+    const dropzones = document.querySelectorAll('.column-body'); // Seleccionamos solo el cuerpo de las columnas
     const sendBtn = document.getElementById('send-btn');
 
-    // --- 2. LÓGICA DE DRAG & DROP ---
-    draggables.forEach(draggable => {
-        draggable.addEventListener('dragstart', () => {
-            draggable.classList.add('dragging');
-        });
+    // --- 2. LÓGICA DE DRAG & DROP (PC + CELULAR) ---
+    // Creamos un grupo compartido para que las tarjetas se muevan entre todas las listas
+    const allZones = [sidebar, ...dropzones];
 
-        draggable.addEventListener('dragend', () => {
-            draggable.classList.remove('dragging');
-        });
-    });
-
-    dropzones.forEach(zone => {
-        zone.addEventListener('dragover', e => {
-            e.preventDefault();
-            zone.classList.add('drag-over');
-        });
-
-        zone.addEventListener('dragleave', () => {
-            zone.classList.remove('drag-over');
-        });
-
-        zone.addEventListener('drop', e => {
-            e.preventDefault();
-            zone.classList.remove('drag-over');
-            
-            const draggable = document.querySelector('.dragging');
-            if (draggable) {
-                zone.appendChild(draggable);
-            }
-
-            const cardsRemaining = sidebar.querySelectorAll('.pink-card').length;
-            if (cardsRemaining === 0) {
-                sendBtn.style.display = 'block';
-            } else {
-                sendBtn.style.display = 'none';
+    allZones.forEach(zone => {
+        new Sortable(zone, {
+            group: 'shared', // Nombre del grupo para permitir el intercambio
+            animation: 150,
+            ghostClass: 'drag-over', // Clase visual cuando se arrastra
+            // Esta función se ejecuta cada vez que se suelta una tarjeta
+            onEnd: () => {
+                const cardsRemaining = sidebar.querySelectorAll('.pink-card').length;
+                if (cardsRemaining === 0) {
+                    sendBtn.style.display = 'block';
+                } else {
+                    sendBtn.style.display = 'none';
+                }
             }
         });
     });
@@ -67,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sendBtn.innerText = "Enviando...";
         sendBtn.disabled = true;
 
-        // CAMBIO CLAVE: Ahora seleccionamos el contenedor que envuelve Nombre + Tabla
         const container = document.getElementById('captura-completa');
         const nameValue = document.querySelector('.name-input').value || "Anónimo";
 
@@ -87,9 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
                 .then(() => {
-                    // Bloqueamos al usuario localmente
                     localStorage.setItem('formularioEnviado', 'true');
-                    
                     alert('¡Excelente! Tu clasificación ha sido enviada con éxito.');
                     location.reload(); 
                 }, (error) => {
